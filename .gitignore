@@ -1,0 +1,9 @@
+# Repo-wide ignores. backend/ and frontend/ have their own .gitignore files.
+.DS_Store
+.env
+
+# Personal learning notes, not part of the portfolio
+learning/
+
+# Personal Claude Code settings (machine-specific permissions)
+.claude/settings.local.json

@@ -1,0 +1,8 @@
+# Sidekiq connects to Redis using the REDIS_URL env var (default redis://localhost:6379/0).
+#
+# Keep concurrency <= the ActiveRecord pool size (RAILS_MAX_THREADS in database.yml):
+# each Sidekiq thread holds a database connection while a job runs.
+:concurrency: <%= ENV.fetch("SIDEKIQ_CONCURRENCY", 5) %>
+:queues:
+  - default
+  - mailers
