@@ -332,8 +332,8 @@ Jobs receive IDs, not objects, so the job reloads current state when it runs.
 
 | Method & path | Allowed | Purpose | Success |
 |---|---|---|---|
-| `POST /api/v1/sessions` | anyone | log in, returns a token and the user (with `role`) | 201 |
-| `DELETE /api/v1/sessions` | authenticated | log out (revoke the token) | 204 |
+| `POST /api/v1/session` | anyone (rate-limited: 10 per 3 min per IP) | log in, returns a token and the user (with `role`) | 201 |
+| `DELETE /api/v1/session` | authenticated | log out (revoke this token) | 204 |
 | `GET /api/v1/me` | authenticated | current user; the app calls it on startup to check a saved token and pick the screens | 200 |
 | `GET /api/v1/customers` | dispatcher | customer picker on the booking form | 200 |
 | `GET /api/v1/drivers` | dispatcher | driver picker for assignment (active drivers, with active job count) | 200 |
@@ -370,6 +370,10 @@ Error envelope (every non-2xx response):
 | missing top-level param | 400 | `bad_request` |
 | model validation failed | 422 | `validation_failed` |
 | no rate card or rate rule | 422 | `pricing_unavailable` |
+| inactive driver assigned | 422 | `driver_unavailable` |
+| wrong email or password | 401 | `invalid_credentials` |
+| too many login attempts | 429 | `rate_limited` |
+| unique index fired (two identical requests raced) | 409 | `conflict` |
 | disallowed status transition | 409 | `invalid_transition` |
 
 ## 10. Rails validations vs database constraints

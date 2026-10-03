@@ -12,7 +12,7 @@ class Consignment
       "picked_up" => %w[in_transit],
       "in_transit" => %w[delivered],
       "delivered" => []
-    }.freeze
+    }.freeze   #freeze means the hash cannot be modified at runtime.
 
     def self.allowed?(from, to)
       TRANSITIONS.fetch(from.to_s, []).include?(to.to_s)
