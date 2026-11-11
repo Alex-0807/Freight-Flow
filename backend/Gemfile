@@ -36,7 +36,7 @@ group :development, :test do
   gem "rubocop-rails-omakase", require: false
 
   # Testing: RSpec + factories (in both groups so generators create specs and factories)
-  gem "rspec-rails", "~> 8.0"
+  gem "rspec-rails", "~> 8.1"
   gem "factory_bot_rails", "~> 6.5"
 end
 
